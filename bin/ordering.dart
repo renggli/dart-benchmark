@@ -19,6 +19,7 @@ void packageCollection() {
 }
 
 void packageOrdering() {
+  // ignore: deprecated_member_use
   final ordering = Ordering.natural<double>();
   for (var test in tests) {
     ordering.binarySearch(values, test);
@@ -26,7 +27,7 @@ void packageOrdering() {
 }
 
 void packageComparable() {
-  final comparator = naturalComparator<double>();
+  const comparator = naturalComparable<num>;
   for (var test in tests) {
     comparator.binarySearch(values, test);
   }
