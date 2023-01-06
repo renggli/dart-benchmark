@@ -8,10 +8,10 @@ description: A time and space efficient collection of data structures and
 environment:
   sdk: '>=2.18.0 <3.0.0'
 dependencies:
+  collection: ^1.17.0
   data: ^0.10.0
   meta: ^1.8.0
   more: ^3.8.0
 dev_dependencies:
-  collection: ^1.16.0
   lints: ^2.0.0
   test: ^1.21.0
