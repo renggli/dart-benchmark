@@ -5,8 +5,8 @@ import 'package:more/more.dart';
 
 typedef Benchmark = void Function();
 
-const defaultWarmup = Duration(milliseconds: 200);
-const defaultMeasure = Duration(milliseconds: 1000);
+const defaultWarmup = Duration(milliseconds: 100);
+const defaultMeasure = Duration(milliseconds: 500);
 const defaultSamples = 25;
 
 /// Compares the execution time of [control] vs [experiment].
