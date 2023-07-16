@@ -36,10 +36,9 @@ void experiments({
     final percentChangeSamples = List.generate(
         samples,
         (i) =>
-            (100.0 *
-                (controlSamples[i] - experimentSamples[i]) /
-                controlSamples[i]) -
-            100.0);
+            100.0 *
+            (controlSamples[i] - experimentSamples[i]) /
+            controlSamples[i]);
     final percentChangeJackknife = Jackknife<double>(
         percentChangeSamples, (list) => list.arithmeticMean());
     stdout.writeln(result(percentChangeJackknife, unit: '%'));
@@ -48,7 +47,8 @@ void experiments({
 
 String result(Jackknife<double> jackknife,
     {int precision = 3, required String unit}) {
-  final printer = FixedNumberPrinter(precision: precision).after(unit);
+  final printer =
+      FixedNumberPrinter(precision: precision, separator: ',').after(unit);
   return '${printer(jackknife.estimate)} '
       '[${printer(jackknife.lowerBound)}; '
       '${printer(jackknife.upperBound)}]';
