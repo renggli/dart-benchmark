@@ -6,18 +6,20 @@ import 'package:petitparser/petitparser.dart';
 
 final random = Random(42);
 const context = Context('', 0);
-final inputs = IntegerRange(1024 * 1024)
-    .map<Result<String>>((_) => random.nextBool()
-        ? context.success<String>('success', random.nextInt(0xffff))
-        : context.failure<String>('failure', random.nextInt(0xffff)))
-    .toList(growable: false);
+final inputs = IntegerRange(1024 * 1024).map<Result<String>>((_) {
+  if (random.nextBool()) {
+    return context.success<String>('success');
+  } else {
+    return context.failure('failure');
+  }
+}).toList(growable: false);
 
 Benchmark exercise(int Function(Result<String>) underTest) =>
     () => inputs.forEach(underTest);
 
 void main() {
   experiments(
-    control: exercise((result) => result.isSuccess ? result.position : -1),
+    control: exercise((result) => result is Failure ? -1 : result.position),
     experiments: {
       // Object pattern
       'switch1.a': exercise((result) => switch (result) {
@@ -31,7 +33,7 @@ void main() {
       // Class pattern
       'switch2.a': exercise((result) => switch (result) {
             final Success s => s.position, // ignore: strict_raw_type
-            Failure _ => -1, // ignore: strict_raw_type
+            Failure _ => -1,
           }),
       'switch2.b': exercise((result) => switch (result) {
             final Success s => s.position, // ignore: strict_raw_type
@@ -40,7 +42,7 @@ void main() {
       // Class pattern with generics
       'switch3.a': exercise((result) => switch (result) {
             final Success<String> s => s.position,
-            Failure<String> _ => -1,
+            Failure _ => -1,
           }),
       'switch3.b': exercise((result) => switch (result) {
             final Success<String> s => s.position,
