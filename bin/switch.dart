@@ -33,11 +33,11 @@ void main() {
           }),
       // Class pattern
       'switch2.a': exercise((result) => switch (result) {
-            final Success s => s.position,
-            Failure _ => -1,
+            final Success s => s.position, // ignore: strict_raw_type
+            Failure _ => -1, // ignore: strict_raw_type
           }),
       'switch2.b': exercise((result) => switch (result) {
-            final Success s => s.position,
+            final Success s => s.position, // ignore: strict_raw_type
             _ => -1,
           }),
       // Class pattern with generics
