@@ -24,9 +24,9 @@ void experiments({
       Jackknife<double>(controlSamples, (list) => list.arithmeticMean());
   stdout.writeln(result(controlJackknife, unit: 'μs'));
 
-  for (final name in experiments.keys) {
+  for (final MapEntry(key: name, value: experiment) in experiments.entries) {
     stdout.write(name.padRight(20));
-    final experimentSamples = benchmark(experiments[name]!,
+    final experimentSamples = benchmark(experiment,
         warmup: warmup, measure: measure, samples: samples);
     final experimentJackknife =
         Jackknife<double>(experimentSamples, (list) => list.arithmeticMean());

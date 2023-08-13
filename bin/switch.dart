@@ -6,17 +6,14 @@ import 'package:petitparser/petitparser.dart';
 
 final random = Random(42);
 const context = Context('', 0);
-final input = IntegerRange(1024 * 1024)
+final inputs = IntegerRange(1024 * 1024)
     .map<Result<String>>((_) => random.nextBool()
         ? context.success<String>('success', random.nextInt(0xffff))
         : context.failure<String>('failure', random.nextInt(0xffff)))
     .toList(growable: false);
 
-Benchmark exercise(int Function(Result<String>) underTest) => () {
-      for (var i = 0; i < input.length; i++) {
-        underTest(input[i]);
-      }
-    };
+Benchmark exercise(int Function(Result<String>) underTest) =>
+    () => inputs.forEach(underTest);
 
 void main() {
   experiments(
