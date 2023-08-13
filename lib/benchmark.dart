@@ -9,7 +9,7 @@ const defaultWarmup = Duration(milliseconds: 100);
 const defaultMeasure = Duration(milliseconds: 500);
 const defaultSamples = 25;
 
-/// Compares the execution time of [control] vs [experiment].
+/// Compares the execution time of [control] vs [experiments].
 void experiments({
   required Benchmark control,
   required Map<String, Benchmark> experiments,

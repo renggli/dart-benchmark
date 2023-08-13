@@ -22,17 +22,32 @@ void main() {
   experiments(
     control: exercise((result) => result.isSuccess ? result.position : -1),
     experiments: {
-      'switch1': exercise((result) => switch (result) {
+      // Object pattern
+      'switch1.a': exercise((result) => switch (result) {
             Success(position: final position) => position,
             Failure() => -1,
           }),
-      'switch2': exercise((result) => switch (result) {
+      'switch1.b': exercise((result) => switch (result) {
+            Success(position: final position) => position,
+            _ => -1,
+          }),
+      // Class pattern
+      'switch2.a': exercise((result) => switch (result) {
             final Success s => s.position,
             Failure _ => -1,
           }),
-      'switch3': exercise((result) => switch (result) {
+      'switch2.b': exercise((result) => switch (result) {
+            final Success s => s.position,
+            _ => -1,
+          }),
+      // Class pattern with generics
+      'switch3.a': exercise((result) => switch (result) {
             final Success<String> s => s.position,
             Failure<String> _ => -1,
+          }),
+      'switch3.b': exercise((result) => switch (result) {
+            final Success<String> s => s.position,
+            _ => -1,
           }),
     },
   );
