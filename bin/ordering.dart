@@ -12,21 +12,21 @@ final tests = List.generate(1000, (i) => 1000.0 * random.nextDouble())
 
 void packageCollection() {
   int doubleCompare(double a, double b) => a.compareTo(b);
-  for (var test in tests) {
+  for (final test in tests) {
     values.binarySearch(test, doubleCompare);
   }
 }
 
 void packageComparatorCompare() {
   const comparator = naturalCompare;
-  for (var test in tests) {
+  for (final test in tests) {
     comparator.binarySearch(values, test);
   }
 }
 
 void packageComparatorComparable() {
   const comparator = naturalComparable<num>;
-  for (var test in tests) {
+  for (final test in tests) {
     comparator.binarySearch(values, test);
   }
 }
