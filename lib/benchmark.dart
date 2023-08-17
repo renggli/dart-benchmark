@@ -76,6 +76,8 @@ List<double> benchmark(
   return benchmarkSamples;
 }
 
+@pragma('vm:never-inline')
+@pragma('vm:no-interrupts')
 double _benchmark(Benchmark function, Duration duration) {
   final watch = Stopwatch();
   final micros = duration.inMicroseconds;
