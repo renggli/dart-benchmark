@@ -11,12 +11,17 @@ const defaultSamples = 25;
 
 /// Compares the execution time of [control] vs [experiments].
 void experiments({
+  String? title,
   required Benchmark control,
   required Map<String, Benchmark> experiments,
   Duration warmup = defaultWarmup,
   Duration measure = defaultMeasure,
   int samples = defaultSamples,
 }) {
+  if (title != null) {
+    stdout.writeln(title);
+    stdout.writeln('-' * title.length);
+  }
   stdout.write('Control'.padRight(20));
   final controlSamples =
       benchmark(control, warmup: warmup, measure: measure, samples: samples);
@@ -43,6 +48,7 @@ void experiments({
         percentChangeSamples, (list) => list.arithmeticMean());
     stdout.writeln(result(percentChangeJackknife, unit: '%'));
   }
+  stdout.writeln();
 }
 
 String result(Jackknife<double> jackknife,
