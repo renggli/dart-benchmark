@@ -33,7 +33,6 @@ void main() {
     title: 'push-pop',
     control: priorityQueueAddRemove(PriorityQueue.new),
     experiments: {
-      'Heap': priorityQueueAddRemove(Heap.new),
       'SortedList': priorityQueueAddRemove(SortedList.new),
     },
   );
@@ -41,7 +40,6 @@ void main() {
     title: 'update',
     control: priorityQueueUpdate(PriorityQueue.new),
     experiments: {
-      'Heap': priorityQueueUpdate(Heap.new),
       'SortedList': priorityQueueUpdate(SortedList.new),
     },
   );

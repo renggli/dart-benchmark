@@ -19,3 +19,5 @@ dev_dependencies:
 dependency_overrides:
   more:
     git: https://github.com/renggli/dart-more
+  data:
+    git: https://github.com/renggli/dart-data
