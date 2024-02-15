@@ -6,7 +6,7 @@ description: A time and space efficient collection of data structures and
   algorithms to deal with data in Dart.
 
 environment:
-  sdk: ^3.2.0
+  sdk: ^3.3.0
 dependencies:
   collection: ^1.18.0
   data: ^0.12.0
