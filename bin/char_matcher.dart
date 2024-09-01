@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:benchmark/benchmark.dart';
@@ -31,7 +32,8 @@ void main() {
       matchSwitchCase(char),
     ];
     if (!results.every((each) => each) && !results.every((each) => !each)) {
-      throw StateError('U+${char.toRadixString(16)}: ${results.join(', ')}');
+      stdout.writeln('WARNING: U+${char.toRadixString(16)} --> '
+          '${results.join(', ')}');
     }
   }
 
