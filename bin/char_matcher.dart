@@ -38,8 +38,8 @@ void main() {
   }
 
   experiments(
-    control: loop(matchBase),
     experiments: {
+      'control': loop(matchBase),
       'range': loop(matchRange),
       'if-then': loop(matchIfThen),
       'switch-or': loop(matchSwitchOr),

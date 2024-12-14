@@ -33,8 +33,8 @@ void packageComparatorComparable() {
 
 void main() {
   experiments(
-    control: packageCollection,
     experiments: {
+      'Collection': packageCollection,
       'Compare': packageComparatorCompare,
       'Comparable': packageComparatorComparable,
     },

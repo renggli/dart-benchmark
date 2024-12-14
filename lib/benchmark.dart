@@ -9,10 +9,9 @@ const defaultWarmup = Duration(milliseconds: 100);
 const defaultMeasure = Duration(milliseconds: 500);
 const defaultSamples = 25;
 
-/// Compares the execution time of [control] vs [experiments].
+/// Compares the execution time of `control` vs `experiments`.
 void experiments({
   String? title,
-  required Benchmark control,
   required Map<String, Benchmark> experiments,
   Duration warmup = defaultWarmup,
   Duration measure = defaultMeasure,
@@ -22,31 +21,30 @@ void experiments({
     stdout.writeln(title);
     stdout.writeln('-' * title.length);
   }
-  stdout.write('Control'.padRight(20));
-  final controlSamples =
-      benchmark(control, warmup: warmup, measure: measure, samples: samples);
-  final controlJackknife =
-      Jackknife<double>(controlSamples, (list) => list.arithmeticMean());
-  stdout.writeln(result(controlJackknife, unit: 'μs'));
-
+  List<double>? controlSamples;
+  final width = experiments.keys.map((name) => name.length).max() + 1;
   for (final MapEntry(key: name, value: experiment) in experiments.entries) {
-    stdout.write(name.padRight(20));
+    stdout.write(name.padRight(width));
     final experimentSamples = benchmark(experiment,
         warmup: warmup, measure: measure, samples: samples);
     final experimentJackknife =
         Jackknife<double>(experimentSamples, (list) => list.arithmeticMean());
     stdout.writeln(result(experimentJackknife, unit: 'μs'));
 
-    stdout.write(' '.padRight(20));
-    final percentChangeSamples = List.generate(
-        samples,
-        (i) =>
-            100.0 *
-            (controlSamples[i] - experimentSamples[i]) /
-            controlSamples[i]);
-    final percentChangeJackknife = Jackknife<double>(
-        percentChangeSamples, (list) => list.arithmeticMean());
-    stdout.writeln(result(percentChangeJackknife, unit: '%'));
+    if (controlSamples != null) {
+      stdout.write(' '.padRight(width));
+      final percentChangeSamples = List.generate(
+          samples,
+          (i) =>
+              100.0 *
+              (controlSamples![i] - experimentSamples[i]) /
+              controlSamples[i]);
+      final percentChangeJackknife = Jackknife<double>(
+          percentChangeSamples, (list) => list.arithmeticMean());
+      stdout.writeln(result(percentChangeJackknife, unit: '%'));
+    } else {
+      controlSamples = experimentSamples;
+    }
   }
   stdout.writeln();
 }

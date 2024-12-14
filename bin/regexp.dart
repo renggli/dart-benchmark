@@ -20,8 +20,8 @@ void parser() => input.indexOf(parserPattern);
 
 void main() {
   experiments(
-    control: string,
     experiments: {
+      'String': string,
       'RegExp': regexp,
       'PetitParser': parser,
     },

@@ -31,16 +31,16 @@ Benchmark queueAddRemoveLast(Queue<int> Function() factory) => () {
 void main() {
   experiments(
     title: 'add-remove first',
-    control: queueAddRemoveFirst(ListQueue.new),
     experiments: {
+      'ListQueue': queueAddRemoveFirst(ListQueue.new),
       'QueueList': queueAddRemoveFirst(QueueList.new),
       'DoubleLinkedQueue': queueAddRemoveFirst(DoubleLinkedQueue.new),
     },
   );
   experiments(
     title: 'add-remove last',
-    control: queueAddRemoveLast(ListQueue.new),
     experiments: {
+      'ListQueue': queueAddRemoveLast(ListQueue.new),
       'QueueList': queueAddRemoveLast(QueueList.new),
       'DoubleLinkedQueue': queueAddRemoveLast(DoubleLinkedQueue.new),
     },

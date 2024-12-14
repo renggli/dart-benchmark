@@ -19,8 +19,8 @@ Benchmark exercise(int Function(Result<String>) underTest) =>
 
 void main() {
   experiments(
-    control: exercise((result) => result is Failure ? -1 : result.position),
     experiments: {
+      'ternary': exercise((result) => result is Failure ? -1 : result.position),
       // Object pattern
       'switch1.a': exercise((result) => switch (result) {
             Success(position: final position) => position,

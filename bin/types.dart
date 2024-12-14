@@ -21,8 +21,8 @@ Benchmark exercise(bool Function(Result<String>) underTest) =>
 
 void main() {
   experiments(
-    control: exercise((result) => true),
     experiments: {
+      'constant': exercise((result) => true),
       // Method
       'isSuccess': exercise((result) => result.isSuccess),
       'isFailure': exercise((result) => result.isFailure),

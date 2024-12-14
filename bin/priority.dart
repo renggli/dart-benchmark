@@ -31,15 +31,15 @@ Benchmark priorityQueueUpdate(PriorityQueue<int> Function() factory) {
 void main() {
   experiments(
     title: 'push-pop',
-    control: priorityQueueAddRemove(PriorityQueue.new),
     experiments: {
+      'PriorityQueue': priorityQueueAddRemove(PriorityQueue.new),
       'SortedList': priorityQueueAddRemove(SortedList.new),
     },
   );
   experiments(
     title: 'update',
-    control: priorityQueueUpdate(PriorityQueue.new),
     experiments: {
+      'PriorityQueue': priorityQueueUpdate(PriorityQueue.new),
       'SortedList': priorityQueueUpdate(SortedList.new),
     },
   );
