@@ -13,12 +13,10 @@ final chars = [
   ...List.filled(250, '😀'.runes.single),
 ].map(String.fromCharCode).shuffled(random).join();
 
-final singleCharacterParser = SingleCharacterParser(
-    SingleCharPredicate('a'.codeUnits.single), '"a" expected');
-final unicodeCharacterParserWithSingle = UnicodeCharacterParser(
-    SingleCharPredicate('a'.codeUnits.single), '"a" expected');
-final unicodeCharacterParserWithSurrogate = UnicodeCharacterParser(
-    SingleCharPredicate('😀'.runes.single), '"😀" expected');
+final defaultParser = char('a');
+final defaultIgnoreCaseParser = char('a', ignoreCase: true);
+final unicodeParser = char('a', unicode: true);
+final unicodeIgnoreCaseParser = char('a', unicode: true, ignoreCase: true);
 
 Benchmark createParseOnBenchmark(Parser<String> parser, String input) => () {
       for (var i = 0; i < input.length; i++) {
@@ -37,23 +35,21 @@ void main() {
   experiments(
     title: 'parseOn',
     experiments: {
-      'SingleCharacterParser':
-          createParseOnBenchmark(singleCharacterParser, chars),
-      'UnicodeCharacterParser (single)':
-          createParseOnBenchmark(unicodeCharacterParserWithSingle, chars),
-      'UnicodeCharacterParser (surrogate)':
-          createParseOnBenchmark(unicodeCharacterParserWithSurrogate, chars),
+      'default': createParseOnBenchmark(defaultParser, chars),
+      'ignoreCase': createParseOnBenchmark(defaultIgnoreCaseParser, chars),
+      'unicode': createParseOnBenchmark(unicodeParser, chars),
+      'unicode, ignoreCase':
+          createParseOnBenchmark(unicodeIgnoreCaseParser, chars),
     },
   );
   experiments(
     title: 'fastParseOn',
     experiments: {
-      'SingleCharacterParser':
-          createFastParseOnBenchmark(singleCharacterParser, chars),
-      'UnicodeCharacterParser (single)':
-          createFastParseOnBenchmark(unicodeCharacterParserWithSingle, chars),
-      'UnicodeCharacterParser (surrogate)': createFastParseOnBenchmark(
-          unicodeCharacterParserWithSurrogate, chars),
+      'default': createFastParseOnBenchmark(defaultParser, chars),
+      'ignoreCase': createFastParseOnBenchmark(defaultIgnoreCaseParser, chars),
+      'unicode': createFastParseOnBenchmark(unicodeParser, chars),
+      'unicode, ignoreCase':
+          createFastParseOnBenchmark(unicodeIgnoreCaseParser, chars),
     },
   );
 }
