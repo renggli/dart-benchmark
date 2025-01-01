@@ -20,5 +20,4 @@ dev_dependencies:
 
 dependency_overrides:
   petitparser:
-    git:
-      url: https://github.com/petitparser/dart-petitparser.git
+    git: https://github.com/petitparser/dart-petitparser
