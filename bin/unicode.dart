@@ -5,11 +5,12 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 
 final random = Random(42);
-final input = [
-  ...List.generate(200, (i) => random.nextInt(0x10ffff)),
-  ...List.generate(300, (i) => random.nextInt(0xffff)),
-  ...List.generate(500, (i) => random.nextInt(0xff)),
-].map(String.fromCharCode).shuffled(random).join();
+final input =
+    [
+      ...List.generate(200, (i) => random.nextInt(0x10ffff)),
+      ...List.generate(300, (i) => random.nextInt(0xffff)),
+      ...List.generate(500, (i) => random.nextInt(0xff)),
+    ].map(String.fromCharCode).shuffled(random).join();
 
 @pragma('vm:never-inline')
 void consume<T>(T value) {}

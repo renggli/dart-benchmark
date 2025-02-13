@@ -25,22 +25,31 @@ void experiments({
   final width = experiments.keys.map((name) => name.length).max() + 1;
   for (final MapEntry(key: name, value: experiment) in experiments.entries) {
     stdout.write(name.padRight(width));
-    final experimentSamples = benchmark(experiment,
-        warmup: warmup, measure: measure, samples: samples);
-    final experimentJackknife =
-        Jackknife<double>(experimentSamples, (list) => list.arithmeticMean());
+    final experimentSamples = benchmark(
+      experiment,
+      warmup: warmup,
+      measure: measure,
+      samples: samples,
+    );
+    final experimentJackknife = Jackknife<double>(
+      experimentSamples,
+      (list) => list.arithmeticMean(),
+    );
     stdout.writeln(result(experimentJackknife, unit: 'μs'));
 
     if (controlSamples != null) {
       stdout.write(' '.padRight(width));
       final percentChangeSamples = List.generate(
-          samples,
-          (i) =>
-              100.0 *
-              (controlSamples![i] - experimentSamples[i]) /
-              controlSamples[i]);
+        samples,
+        (i) =>
+            100.0 *
+            (controlSamples![i] - experimentSamples[i]) /
+            controlSamples[i],
+      );
       final percentChangeJackknife = Jackknife<double>(
-          percentChangeSamples, (list) => list.arithmeticMean());
+        percentChangeSamples,
+        (list) => list.arithmeticMean(),
+      );
       stdout.writeln(result(percentChangeJackknife, unit: '%'));
     } else {
       controlSamples = experimentSamples;
@@ -49,10 +58,15 @@ void experiments({
   stdout.writeln();
 }
 
-String result(Jackknife<double> jackknife,
-    {int precision = 3, required String unit}) {
-  final printer =
-      FixedNumberPrinter(precision: precision, separator: ',').after(unit);
+String result(
+  Jackknife<double> jackknife, {
+  int precision = 3,
+  required String unit,
+}) {
+  final printer = FixedNumberPrinter(
+    precision: precision,
+    separator: ',',
+  ).after(unit);
   return '${printer(jackknife.estimate)} '
       '[${printer(jackknife.lowerBound)}; '
       '${printer(jackknife.upperBound)}]';

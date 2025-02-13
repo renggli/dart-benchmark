@@ -9,24 +9,24 @@ final random = Random(42);
 final values = 1.to(1000).toList()..shuffle(random);
 
 Benchmark queueAddRemoveFirst(Queue<int> Function() factory) => () {
-      final queue = factory();
-      for (final value in values) {
-        queue.addFirst(value);
-      }
-      for (var i = 0; i < values.length; i++) {
-        queue.removeFirst();
-      }
-    };
+  final queue = factory();
+  for (final value in values) {
+    queue.addFirst(value);
+  }
+  for (var i = 0; i < values.length; i++) {
+    queue.removeFirst();
+  }
+};
 
 Benchmark queueAddRemoveLast(Queue<int> Function() factory) => () {
-      final queue = factory();
-      for (final value in values) {
-        queue.addLast(value);
-      }
-      for (var i = 0; i < values.length; i++) {
-        queue.removeLast();
-      }
-    };
+  final queue = factory();
+  for (final value in values) {
+    queue.addLast(value);
+  }
+  for (var i = 0; i < values.length; i++) {
+    queue.removeLast();
+  }
+};
 
 void main() {
   experiments(

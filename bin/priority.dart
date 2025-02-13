@@ -8,14 +8,14 @@ final random = Random(42);
 final values = 1.to(1000).toList()..shuffle(random);
 
 Benchmark priorityQueueAddRemove(PriorityQueue<int> Function() factory) => () {
-      final queue = factory();
-      for (final value in values) {
-        queue.add(value);
-      }
-      for (var i = 0; i < values.length; i++) {
-        queue.removeFirst();
-      }
-    };
+  final queue = factory();
+  for (final value in values) {
+    queue.add(value);
+  }
+  for (var i = 0; i < values.length; i++) {
+    queue.removeFirst();
+  }
+};
 
 Benchmark priorityQueueUpdate(PriorityQueue<int> Function() factory) {
   final queue = factory();

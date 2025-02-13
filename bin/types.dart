@@ -8,13 +8,15 @@ import 'package:petitparser/petitparser.dart';
 
 final random = Random(42);
 const context = Context('', 0);
-final inputs = IntegerRange(1024 * 1024).map<Result<String>>((_) {
-  if (random.nextBool()) {
-    return context.success<String>('success');
-  } else {
-    return context.failure('failure');
-  }
-}).toList(growable: false);
+final inputs = IntegerRange(1024 * 1024)
+    .map<Result<String>>((_) {
+      if (random.nextBool()) {
+        return context.success<String>('success');
+      } else {
+        return context.failure('failure');
+      }
+    })
+    .toList(growable: false);
 
 Benchmark exercise(bool Function(Result<String>) underTest) =>
     () => inputs.forEach(underTest);
