@@ -4,16 +4,28 @@ import 'dart:math';
 
 import 'package:benchmark/benchmark.dart';
 import 'package:more/collection.dart';
-import 'package:petitparser/petitparser.dart';
+
+abstract class Result<T> {
+  bool get isSuccess;
+}
+
+class Success<T> extends Result<T> {
+  @override
+  bool get isSuccess => true;
+}
+
+class Failure extends Result<Never> {
+  @override
+  bool get isSuccess => false;
+}
 
 final random = Random(42);
-const context = Context('', 0);
 final inputs = IntegerRange(1024 * 1024)
     .map<Result<String>>((_) {
       if (random.nextBool()) {
-        return context.success<String>('success');
+        return Success<String>();
       } else {
-        return context.failure('failure');
+        return Failure();
       }
     })
     .toList(growable: false);
@@ -25,18 +37,18 @@ void main() {
   experiments(
     experiments: {
       'constant': exercise((result) => true),
-      // Method
+      // method
       'isSuccess': exercise((result) => result.isSuccess),
-      'isFailure': exercise((result) => result.isFailure),
       // is-operator
       'is Success': exercise((result) => result is Success),
-      'is Failure': exercise((result) => result is Failure),
-      // is-operator with dynamic
-      'is Success<dynamic>': exercise((result) => result is Success<dynamic>),
-      // is-operator with type
-      'is Success<T>': exercise((result) => result is Success<String>),
+      // is-operator with Object
+      'is Success<Object>': exercise((result) => result is Success<Object>),
       // is-operator with Object?
       'is Success<Object?>': exercise((result) => result is Success<Object?>),
+      // is-operator with dynamic
+      'is Success<dynamic>': exercise((result) => result is Success<dynamic>),
+      // is-operator with String
+      'is Success<String>': exercise((result) => result is Success<String>),
     },
   );
 }
