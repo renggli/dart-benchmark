@@ -6,11 +6,10 @@ import 'package:more/comparator.dart';
 
 final random = Random(42);
 final values = List.generate(1000, (i) => 1000.0 * random.nextDouble())..sort();
-final tests =
-    List.generate(
-      1000,
-      (i) => 1000.0 * random.nextDouble(),
-    ).followedBy(values).toList();
+final tests = List.generate(
+  1000,
+  (i) => 1000.0 * random.nextDouble(),
+).followedBy(values).toList();
 
 void packageCollection() {
   int doubleCompare(double a, double b) => a.compareTo(b);

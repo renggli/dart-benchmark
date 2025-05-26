@@ -108,12 +108,9 @@ const ranges = [
   129664, 129672, 129680, 129725, 129727, 129733, 129742, 129755, 129760,
   129768, 129776, 129784, 129792, 129938, 129940, 129994, //
 ];
-final matchRange =
-    optimize(
-      ranges
-          .chunked(2)
-          .map((range) => RangeCharMatcher(range.first, range.last)),
-    ).match;
+final matchRange = optimize(
+  ranges.chunked(2).map((range) => RangeCharMatcher(range.first, range.last)),
+).match;
 
 bool matchIfThen(int value) {
   if (value <= 12703) {
