@@ -2,7 +2,7 @@ name: benchmark
 version: 0.1.0
 
 homepage: https://github.com/renggli/dart-benchmark
-description: Library for accurate microbenchmarks with confidence intervals.
+description: Accurate microbenchmarks with confidence intervals.
 
 environment:
   sdk: ^3.8.0
