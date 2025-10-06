@@ -2,8 +2,7 @@ name: benchmark
 version: 0.1.0
 
 homepage: https://github.com/renggli/dart-benchmark
-description: A time and space efficient collection of data structures and
-  algorithms to deal with data in Dart.
+description: Library for accurate microbenchmarks with confidence intervals.
 
 environment:
   sdk: ^3.8.0
