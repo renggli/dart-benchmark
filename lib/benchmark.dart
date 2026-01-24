@@ -3,13 +3,36 @@ import 'dart:io';
 import 'package:data/stats.dart';
 import 'package:more/more.dart';
 
+/// A function that performs a benchmark.
 typedef Benchmark = void Function();
 
+/// The default warmup duration for benchmarks.
 const defaultWarmup = Duration(milliseconds: 100);
+
+/// The default measure duration for benchmarks.
 const defaultMeasure = Duration(milliseconds: 500);
+
+/// The default number of samples to take for benchmarks.
 const defaultSamples = 25;
 
 /// Compares the execution time of `control` vs `experiments`.
+///
+/// Example:
+/// ```dart
+/// experiments(
+///   title: 'List performance',
+///   experiments: {
+///     'List.add': () {
+///       final list = [];
+///       for (var i = 0; i < 1000; i++) list.add(i);
+///     },
+///     'List.addAll': () {
+///       final list = [];
+///       list.addAll(List.generate(1000, (i) => i));
+///     },
+///   },
+/// );
+/// ```
 void experiments({
   String? title,
   required Map<String, Benchmark> experiments,
@@ -58,6 +81,7 @@ void experiments({
   stdout.writeln();
 }
 
+/// Formats the result of a [Jackknife] estimate.
 String result(
   Jackknife<double> jackknife, {
   int precision = 3,
@@ -80,6 +104,14 @@ String result(
 ///  - the code is benchmarked for the duration of [measure].
 ///
 /// The resulting duration is the average time measured to run [function] once.
+///
+/// Example:
+/// ```dart
+/// final samples = benchmark(() {
+///   // Code to benchmark.
+/// });
+/// print(samples.arithmeticMean());
+/// ```
 List<double> benchmark(
   Benchmark function, {
   Duration warmup = defaultWarmup,
