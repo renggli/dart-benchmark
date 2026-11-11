@@ -5,7 +5,7 @@ homepage: https://github.com/renggli/dart-benchmark
 description: Accurate microbenchmarks with confidence intervals.
 
 environment:
-  sdk: ^3.13.0
+  sdk: ^3.14.0
 dependencies:
   characters: ^1.4.1
   collection: ^1.19.1
